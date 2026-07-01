@@ -30,7 +30,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.google.codelabs.productimagesearch.databinding.ActivityObjectDetectorBinding
+import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.objects.DetectedObject
+import com.google.mlkit.vision.objects.ObjectDetection
+import com.google.mlkit.vision.objects.defaults.ObjectDetectorOptions
 import java.io.File
 import java.io.IOException
 
@@ -108,7 +111,42 @@ class ObjectDetectorActivity : AppCompatActivity() {
      * Detect Objects in a given Bitmap
      */
     private fun runObjectDetection(bitmap: Bitmap) {
+        val image = InputImage.fromBitmap(bitmap, 0)
 
+        val options = ObjectDetectorOptions.Builder()
+            .setDetectorMode(ObjectDetectorOptions.SINGLE_IMAGE_MODE)
+            .enableMultipleObjects()
+            .enableClassification()
+            .build()
+        val objectDetector = ObjectDetection.getClient(options)
+
+        // Step 3: feed given image to detector and setup callback
+        objectDetector.process(image)
+            .addOnSuccessListener {
+                // Task completed successfully
+                debugPrint(it)
+                runOnUiThread {
+                    viewBinding.ivPreview.drawDetectionResults(it)
+                }
+            }
+            .addOnFailureListener {
+                // Task failed with an exception
+                Log.e(TAG, it.message.toString())
+            }
+    }
+
+    private fun debugPrint(detectedObjects: List<DetectedObject>) {
+        detectedObjects.forEachIndexed { index, detectedObject ->
+            val box = detectedObject.boundingBox
+
+            Log.d(TAG, "Detected object: $index")
+            Log.d(TAG, " trackingId: ${detectedObject.trackingId}")
+            Log.d(TAG, " boundingBox: (${box.left}, ${box.top}) - (${box.right},${box.bottom})")
+            detectedObject.labels.forEach {
+                Log.d(TAG, " categories: ${it.text}")
+                Log.d(TAG, " confidence: ${it.confidence}")
+            }
+        }
     }
 
     /**
