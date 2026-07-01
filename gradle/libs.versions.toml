@@ -1,0 +1,33 @@
+[versions]
+agp = "9.2.1"
+appcompat = "1.7.1"
+constraintlayout = "2.2.1"
+glide = "5.0.7"
+gradle = "9.2.1"
+gson = "2.14.0"
+jetbrainsKotlin = "2.4.0"
+kotlin-stdlib = "2.1.20"
+kotlinGradlePlugin = "2.4.0"
+kotlinxCoroutinesAndroid = "1.11.0"
+lifecycleRuntimeKtx = "2.11.0"
+material = "1.14.0"
+objectDetection = "17.0.2"
+volley = "1.2.1"
+
+[libraries]
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "gradle" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin-stdlib" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+object1-detection = { group = "com.google.mlkit", name = "object-detection", version.ref = "objectDetection" }
+volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+jetbrains-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "jetbrainsKotlin" }
